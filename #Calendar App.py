@@ -8,4 +8,4 @@ application = tk.Tk()
 application.title("Calendar Test")
 calendar = Calendar(application)
 calendar.pack(padx = 15, pady = 15)
-application.mainloop
+application.mainloop()
