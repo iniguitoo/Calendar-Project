@@ -1,6 +1,13 @@
 #Calendar App
 import tkinter as tk
-import calendar
-print("Calendar App Test Code")
-html_calendar = calendar.HTMLCalendar()
-print(html_calendar.formatyear(2024))
+from tkcalendar import Calendar
+
+def main():
+
+    application = tk.Tk()
+    application.title("Calendar Test")
+    calendar = Calendar(application)
+    calendar.pack(padx = 15, pady = 15)
+    application.mainloop
+
+main()
