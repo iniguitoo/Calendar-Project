@@ -1,14 +1,14 @@
-#Calendar App
-import tkinter as tk
-from tkcalendar import Calendar
 
-application = tk.Tk()
-application.title("Calendar Test")
-calendar = Calendar(
-application,
-selectmode = "day", 
-firstweekday = 'sunday',                 
-)
-calendar.pack(padx = 15, pady = 15)
+import sys
+from PyQt5 import QtWidgets
+from PyQt5.QtWidgets import QApplication, QMainWindow
 
-application.mainloop()
+def app():
+    application = QtWidgets.QApplication(sys.argv)
+    window = QtWidgets.QMainWindow()
+    window.setGeometry(0, 0, 2000, 2000)
+    window.setWindowTitle("The Python Calendar")
+    window.show()
+    sys.exit(application.exec_())
+
+app()
