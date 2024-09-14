@@ -34,5 +34,3 @@ mainWin = Window()
 
 
 application.exec_()
-
-        
