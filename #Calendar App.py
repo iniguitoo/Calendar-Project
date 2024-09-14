@@ -1,41 +1,38 @@
 
 import sys
-from PyQt5 import QtWidgets
-from PyQt5.QtWidgets import (
-    QApplication, 
-    QMainWindow,
-    QCheckBox,
-    QComboBox,
-    QDateEdit,
-    QDateTimeEdit,
-    QDial,
-    QDoubleSpinBox,
-    QFontComboBox,
-    QLabel,
-    QLCDNumber,
-    QLineEdit,
-    QProgressBar,
-    QPushButton,
-    QRadioButton,
-    QSlider,
-    QSpinBox,
-    QTimeEdit,
-    QVBoxLayout,
-    QWidget,
-)
+import PyQt5.QtWidgets as qtw
+import PyQt5.QtGui as gui
 
-def app():
-    application = QtWidgets.QApplication(sys.argv)
-    window = QtWidgets.QMainWindow()
-    window.setGeometry(0, 0, 2000, 2000)
-    window.setWindowTitle("The Python Calendar")
-    widget = QLabel("Test")
-    font = widget.font()
-    font.setPointSize(70)
-    widget.setFont(font)
-    widget.setAlignment
-  
-    window.show()
-    sys.exit(application.exec_())
+class Window(qtw.QWidget):
+    def __init__(self):
+        super().__init__()
 
-app()
+        self.setWindowTitle("The Python Calendar")
+        self.setLayout(qtw.QVBoxLayout())
+        title_label = qtw.QLabel("Welcome to the Python Calendar Startup! Please enter your name:")
+        title_label.setFont(gui.QFont('Arial', 18))
+
+        self.layout().addWidget(title_label)
+        entry = qtw.QLineEdit()
+        entry.setObjectName("name_entry")
+        entry.setText("")
+        self.layout().addWidget(entry)
+
+        create_user = qtw.QPushButton("Create User",
+        clicked = lambda: created_user())
+        self.layout().addWidget(create_user)
+
+        self.show()
+
+        def created_user():
+            title_label.setText(f'Welcome {entry.text()}!')
+            entry.setText("")
+    
+application = qtw.QApplication([])
+mainWin = Window()
+
+
+
+application.exec_()
+
+        
