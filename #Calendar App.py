@@ -21,12 +21,17 @@ class Window(qtw.QWidget):
         create_user = qtw.QPushButton("Create User",
         clicked = lambda: created_user())
         self.layout().addWidget(create_user)
+        quit_button = qtw.QPushButton("Quit",
+        clicked = lambda: quit_program())
+        self.layout().addWidget(quit_button)
 
         self.show()
 
         def created_user():
             title_label.setText(f'Welcome {entry.text()}!')
             entry.setText("")
+        def quit_program():
+            application.quit()
     
 application = qtw.QApplication([])
 mainWin = Window()
