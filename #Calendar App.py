@@ -7,20 +7,24 @@ class Window(qtw.QWidget):
     def __init__(self):
         super().__init__()
 
-        self.setWindowTitle("The Python Calendar")
+        self.setWindowTitle("The Python Calendar") #Window is made with title
         self.setLayout(qtw.QVBoxLayout())
         title_label = qtw.QLabel("Welcome to the Python Calendar Startup! Please enter your name:")
         title_label.setFont(gui.QFont('Arial', 18))
 
+        #Having the user enter their name, makes the calendar more personal
         self.layout().addWidget(title_label)
         entry = qtw.QLineEdit()
         entry.setObjectName("name_entry")
         entry.setText("")
         self.layout().addWidget(entry)
-
+        #User creation
         create_user = qtw.QPushButton("Create User",
         clicked = lambda: created_user())
         self.layout().addWidget(create_user)
+
+
+        #Quit button made
         quit_button = qtw.QPushButton("Quit",
         clicked = lambda: quit_program())
         self.layout().addWidget(quit_button)
