@@ -43,7 +43,7 @@ class Ui_MainWindow(object):
         font.setPointSize(11)
         self.userCreate.setFont(font)
         self.userCreate.setObjectName("userCreate")
-        self.quitButton = QtWidgets.QPushButton(self.centralwidget)
+        self.quitButton = QtWidgets.QPushButton(self.centralwidget, clicked = lambda: self.quit_button())
         self.quitButton.setGeometry(QtCore.QRect(260, 410, 281, 31))
         font = QtGui.QFont()
         font.setPointSize(11)
@@ -60,6 +60,10 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
+
+    def quit_button(self):
+        QtWidgets.QApplication.quit()
+
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
