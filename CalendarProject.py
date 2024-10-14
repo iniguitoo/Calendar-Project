@@ -9,7 +9,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-
+from EventCreation import Ui_EventMaker
 
 class Ui_PythonCalendar(object):
     def setupUi(self, PythonCalendar):
@@ -104,6 +104,9 @@ class Ui_PythonCalendar(object):
         self.retranslateUi(PythonCalendar)
         QtCore.QMetaObject.connectSlotsByName(PythonCalendar)
 
+        self.actionAdd.triggered.connect(self.openEventWindow)
+        self.eventList = []
+
     def retranslateUi(self, PythonCalendar):
         _translate = QtCore.QCoreApplication.translate
         PythonCalendar.setWindowTitle(_translate("PythonCalendar", "MainWindow"))
@@ -128,6 +131,44 @@ class Ui_PythonCalendar(object):
         self.actionDelete.setText(_translate("PythonCalendar", "Delete"))
         self.actionCalendar.setText(_translate("PythonCalendar", "Calendar"))
 
+
+    def openEventWindow(self):
+        self.eventWindow = QtWidgets.QMainWindow()
+        self.eventUi = Ui_EventMaker()
+        self.eventUi.setupUi(self.eventWindow)
+        self.eventUi.createButton.clicked.connect(self.eventAddToCalendar)
+        self.eventWindow.show()
+
+    def eventAddToCalendar(self):
+        event_name = self.eventUi.eventName.text()
+        start_date = self.eventUi.dateTimeEditStart.dateTime().toPyDateTime()
+
+        #Updates the bottom part of the calendar
+        self.eventList.append(f"{event_name} on {start_date.strftime('%Y-%m-%d')}")
+        self.eventOutput.setText("\n".join(self.eventList))
+
+        self.monthEventUpdate()
+        #Changes day color
+        highlightDay = QtGui.QTextCharFormat()
+        highlightDay.setBackground(QtGui.QBrush(QtGui.QColor("yellow")))
+        self.calendar_1.setDateTextFormat(start_date.date(), highlightDay)
+        #Closes window
+        self.eventWindow.close()
+
+    def monthEventUpdate(self):
+        current_month = self.calendar_1.monthShown()
+        current_year = self.calendar_1.yearShown()
+        # Filter events that are in the current visible month and year
+        events_in_month = [
+            f"{event_name} on {event_date.strftime('%Y-%m-%d')}"
+            for event_name, event_date in self.eventList
+            if event_date.month == current_month and event_date.year == current_year
+        ]
+        # Update the label to show the events of the current month
+        if events_in_month:
+            self.eventOutput.setText("\n".join(events_in_month))
+        else:
+            self.eventOutput.setText("No Events This Month")
 
 if __name__ == "__main__":
     import sys
