@@ -9,14 +9,9 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from CalendarProject import Ui_PythonCalendar
+
 
 class Ui_MainWindow(object):
-    def createUser(self):
-        self.window = QtWidgets.QMainWindow()
-        self.ui = Ui_PythonCalendar()
-        self.ui.setupUi(self.window)
-        self.window.show()
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(800, 535)
@@ -42,21 +37,27 @@ class Ui_MainWindow(object):
         font.setPointSize(14)
         self.nameEdit.setFont(font)
         self.nameEdit.setObjectName("nameEdit")
-        self.userCreate = QtWidgets.QPushButton(self.centralwidget, clicked = lambda: self.createUser())
+        self.userCreate = QtWidgets.QPushButton(self.centralwidget)
         self.userCreate.setGeometry(QtCore.QRect(260, 360, 281, 31))
         font = QtGui.QFont()
         font.setPointSize(11)
         self.userCreate.setFont(font)
         self.userCreate.setObjectName("userCreate")
-        self.quitButton = QtWidgets.QPushButton(self.centralwidget, clicked = lambda: self.quit_button())
-        self.quitButton.setGeometry(QtCore.QRect(260, 410, 281, 31))
+        self.quitButton = QtWidgets.QPushButton(self.centralwidget)
+        self.quitButton.setGeometry(QtCore.QRect(260, 460, 281, 31))
         font = QtGui.QFont()
         font.setPointSize(11)
         self.quitButton.setFont(font)
         self.quitButton.setObjectName("quitButton")
+        self.pushButton = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton.setGeometry(QtCore.QRect(260, 410, 281, 31))
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        self.pushButton.setFont(font)
+        self.pushButton.setObjectName("pushButton")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 800, 26))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 800, 21))
         self.menubar.setObjectName("menubar")
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
@@ -66,10 +67,6 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
-    def quit_button(self):
-        QtWidgets.QApplication.quit()
-
-
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
@@ -77,6 +74,7 @@ class Ui_MainWindow(object):
         self.nameLabel.setText(_translate("MainWindow", "Enter your Name"))
         self.userCreate.setText(_translate("MainWindow", "Create User"))
         self.quitButton.setText(_translate("MainWindow", "Quit"))
+        self.pushButton.setText(_translate("MainWindow", "Proceed"))
 
 
 if __name__ == "__main__":
