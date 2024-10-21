@@ -184,14 +184,7 @@ class Ui_PythonCalendar(object):
         # Update the event output and calendar highlights
         self.monthEventUpdate()
 
-        # Refresh the calendar highlights
-        self.calendar_1.clearDateTextFormats()
-        for event_name, event_date in self.eventList:
-            if event_date.date() >= current_date:
-                highlightDay = QtGui.QTextCharFormat()
-                highlightDay.setBackground(QtGui.QBrush(QtGui.QColor("yellow")))
-                self.calendar_1.setDateTextFormat(event_date.date(), highlightDay)
-
+        
 
 if __name__ == "__main__":
     import sys
