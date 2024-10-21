@@ -177,10 +177,8 @@ class Ui_PythonCalendar(object):
             self.eventOutput.setText("No Events This Month")
 #Delete past event 
    def deletePastEvents(self):
-        current_date = QtCore.QDate.currentDate()
-        self.eventList = [event for event in self.eventList if event[1].date() >= current_date]
-        self.monthEventUpdate()
-
+        current_date = QtCore.QDate.currentDate().toPyDate()  # Get the current date
+        self.eventList = [event for event in self
 
 
 if __name__ == "__main__":
