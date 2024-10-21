@@ -175,10 +175,22 @@ class Ui_PythonCalendar(object):
             self.eventOutput.setText("\n".join(events_in_month))
         else:
             self.eventOutput.setText("No Events This Month")
-#Delete past event 
-   def deletePastEvents(self):
-        current_date = QtCore.QDate.currentDate().toPyDate()  # Get the current date
-        self.eventList = [event for event in self
+   
+    def deletePastEvents(self):
+        current_date = QtCore.QDate.currentDate()  # Get the current date
+        # Keep only events that are in the future
+        self.eventList = [event for event in self.eventList if event[1] >= current_date]
+
+        # Update the event output and calendar highlights
+        self.monthEventUpdate()
+
+        # Refresh the calendar highlights
+        self.calendar_1.clearDateTextFormats()
+        for event_name, event_date in self.eventList:
+            if event_date.date() >= current_date:
+                highlightDay = QtGui.QTextCharFormat()
+                highlightDay.setBackground(QtGui.QBrush(QtGui.QColor("yellow")))
+                self.calendar_1.setDateTextFormat(event_date.date(), highlightDay)
 
 
 if __name__ == "__main__":
