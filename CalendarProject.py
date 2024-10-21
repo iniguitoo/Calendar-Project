@@ -106,6 +106,8 @@ class Ui_PythonCalendar(object):
 
         self.actionAdd.triggered.connect(self.openEventWindow)
         self.eventList = []
+        self.calendar_1.currentPageChanged.connect(self.monthEventUpdate)
+        self.monthEventUpdate()
         
 
     def retranslateUi(self, PythonCalendar):
