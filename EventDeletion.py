@@ -1,4 +1,4 @@
-
+#We relied heavily on PyQt5 and Designer in our beta UI development
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
