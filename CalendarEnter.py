@@ -1,8 +1,15 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-
+from CalendarProject import Ui_PythonCalendar
 
 class Ui_MainWindow(object):
+    def createUser(self):
+        self.window = QtWidgets.QMainWindow()
+        self.ui = Ui_PythonCalendar()
+        self.ui.setupUi(self.window)
+        self.window.show()
+    def quitProgram(self):
+        QtWidgets.QApplication.quit()
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(800, 535)
@@ -28,13 +35,13 @@ class Ui_MainWindow(object):
         font.setPointSize(14)
         self.nameEdit.setFont(font)
         self.nameEdit.setObjectName("nameEdit")
-        self.userCreate = QtWidgets.QPushButton(self.centralwidget)
+        self.userCreate = QtWidgets.QPushButton(self.centralwidget, clicked = lambda: self.createUser())
         self.userCreate.setGeometry(QtCore.QRect(260, 360, 281, 31))
         font = QtGui.QFont()
         font.setPointSize(11)
         self.userCreate.setFont(font)
         self.userCreate.setObjectName("userCreate")
-        self.quitButton = QtWidgets.QPushButton(self.centralwidget)
+        self.quitButton = QtWidgets.QPushButton(self.centralwidget, clicked = lambda: self.quitProgram())
         self.quitButton.setGeometry(QtCore.QRect(260, 410, 281, 31))
         font = QtGui.QFont()
         font.setPointSize(11)
