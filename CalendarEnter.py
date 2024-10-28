@@ -5,10 +5,14 @@ from CalendarProject import Ui_PythonCalendar
 class Ui_MainWindow(object):
     def createUser(self): #This function passes the user entered into the box
         #into the next window and stores the users name
+        username = self.nameEdit.text()
         self.window = QtWidgets.QMainWindow()
         self.ui = Ui_PythonCalendar()
-        self.ui.setupUi(self.window)
+
+        self.ui.setupUi(self.window, username = username)
+        self.ui.userName.setText(username)
         self.window.show()
+        QtWidgets.QApplication.instance().activeWindow().close()
     def quitProgram(self):
         QtWidgets.QApplication.quit() #Program quit button functionality
 
