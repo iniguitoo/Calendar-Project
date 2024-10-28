@@ -148,7 +148,7 @@ class Ui_PythonCalendar(object):
 
     #Highlight the day in the calendar
         highlightDay = QtGui.QTextCharFormat()
-        highlightDay.setBackground(QtGui.QBrush(QtGui.QColor("yellow")))
+        highlightDay.setBackground(QtGui.QBrush(QtGui.QColor("light blue")))
         self.calendar_1.setDateTextFormat(start_date.date(), highlightDay)
 
     #Close the event window
