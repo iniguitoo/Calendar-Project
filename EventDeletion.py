@@ -1,4 +1,4 @@
-#We relied heavily on PyQt5 and Designer in our beta UI development
+
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
@@ -27,6 +27,9 @@ class Ui_DeleteEvent(object):
         self.selectLabel.setFont(font)
         self.selectLabel.setAlignment(QtCore.Qt.AlignCenter)
         self.selectLabel.setObjectName("selectLabel")
+        self.deleteButton = QtWidgets.QPushButton(self.centralwidget)
+        self.deleteButton.setGeometry(QtCore.QRect(150, 250, 91, 31))
+        self.deleteButton.setObjectName("deleteButton")
         DeleteEvent.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(DeleteEvent)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 407, 21))
@@ -44,6 +47,7 @@ class Ui_DeleteEvent(object):
         DeleteEvent.setWindowTitle(_translate("DeleteEvent", "Delete Event"))
         self.deleteLabel.setText(_translate("DeleteEvent", "Delete an Event..."))
         self.selectLabel.setText(_translate("DeleteEvent", "Select the event you wish to delete:"))
+        self.deleteButton.setText(_translate("Delet eEvent", "Delete Event"))
 
 
 if __name__ == "__main__":
