@@ -174,7 +174,7 @@ class Ui_PythonCalendar(object):
     #Highlights events 
     def highlightEvent(self, date):
         highlight = QtGui.QTextCharFormat()
-        highlight.setBackground(QtGui.QBrush(QtGui.QColor("red")))
+        highlight.setBackground(QtGui.QBrush(QtGui.QColor("light blue")))
         self.calendar_1.setDateTextFormat(date, highlight)
     #delets previous events
     def deletePastEvents(self):
@@ -189,40 +189,53 @@ class Ui_PythonCalendar(object):
                 self.highlightEvent(event_date.date())
 
     def openDeleteWindow(self):
+    
         self.deleteWindow = QtWidgets.QMainWindow()
         self.deleteUi = Ui_DeleteEvent()
         self.deleteUi.setupUi(self.deleteWindow)
         self.deleteUi.comboBox.clear()
 
-        #Here is where we will populate the delete window dropdown with events
-        for event_name in self.eventList:
-            event_id = f"{event_name}"
+        #Adds the events to the dropdown window
+        for event_name, event_date in self.eventList:
+            event_id = f"{event_name} on {event_date.strftime('%Y-%m-%d')}"  # Include the date
             self.deleteUi.comboBox.addItem(event_id)
 
-        #Connects the delete button to its function
+        #Delete button function is connected
         self.deleteUi.deleteButton.clicked.connect(self.deleteEvent)
-        self.deleteWindow.show() #Opens window
+        self.deleteWindow.show()  #Opens window
+
 
     def deleteEvent(self):
-        event_text = self.deleteUi.comboBox.currentText() #Retrieves event
+        event_text = self.deleteUi.comboBox.currentText()  #Grabs event text
 
+        #Removes from list/combo box
         for event in self.eventList:
-            event_name = event[0]
-            event_textBox = f"{event_name}"
+            event_name, event_date = event
+            event_textBox = f"{event_name} on {event_date.strftime('%Y-%m-%d')}"
 
             if event_textBox == event_text:
-                self.eventList.remove(event) #Deletes the event from combo box
-                break
+                self.eventList.remove(event)  # Remove
+                break  
 
-    
-        #Now we update the calendar view on the main page
         self.monthEventUpdate()
-        self.calendar_1.clearDateTextFormats()
 
+        # Default format will remove highlights from the calendar
+    
+        default = QtGui.QTextCharFormat() 
+        default.setBackground(QtGui.QBrush(QtGui.QColor("transparent")))  # Set background to transparent
+
+        #Clear highlights from the calendar for all dates
+        for _, event_date in self.eventList:
+            self.calendar_1.setDateTextFormat(event_date.date(), default)
+
+        #Re-highlight remaining events
         for _, event_date in self.eventList:
             self.highlightEvent(event_date.date())
 
         self.deleteWindow.close()
+
+
+
 
 if __name__ == "__main__":
     import sys
