@@ -107,7 +107,7 @@ class Ui_PythonCalendar(object):
         self.monthEventUpdate()
         self.actionDelete.triggered.connect(self.openDeleteWindow)
         self.actionSave.triggered.connect(self.saveCalendar)
-        self.actionOpen.triggered.connect(self.loadCalendar)
+        self.actionOpenFile.triggered.connect(self.loadCalendar)
 
     def retranslateUi(self, PythonCalendar):
         _translate = QtCore.QCoreApplication.translate
@@ -250,7 +250,7 @@ class Ui_PythonCalendar(object):
             # Save the username and event list to a file
             with open(file_path, 'wb') as file:
                 pickle.dump({'username': self.userName.text(), 'events': self.eventList}, file)
-            QtWidgets.QMessageBox.information(None, "Save", "Calendar saved successfully!")
+            QtWidgets.QMessageBox.information(None, "Save", "Calendar Saved")
 
     def loadCalendar(self):
         
