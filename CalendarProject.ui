@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Python Calendar</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QCalendarWidget" name="calendar_1">
@@ -121,6 +121,7 @@
     <addaction name="menuNew"/>
     <addaction name="actionSave"/>
     <addaction name="actionSave_As"/>
+    <addaction name="actionOpenFile"/>
     <addaction name="menuShare"/>
    </widget>
    <widget class="QMenu" name="menuTools">
@@ -201,6 +202,11 @@
   <action name="actionCalendar">
    <property name="text">
     <string>Calendar</string>
+   </property>
+  </action>
+  <action name="actionOpenFile">
+   <property name="text">
+    <string>Open</string>
    </property>
   </action>
  </widget>
