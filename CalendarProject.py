@@ -1,4 +1,5 @@
 #We relied heavily on PyQt5 and Designer in our beta UI development
+import pickle
 from PyQt5 import QtCore, QtGui, QtWidgets
 from EventCreation import Ui_EventMaker
 from EventDeletion import Ui_DeleteEvent
@@ -102,6 +103,8 @@ class Ui_PythonCalendar(object):
         self.calendar_1.currentPageChanged.connect(self.monthEventUpdate)
         self.monthEventUpdate()
         self.actionDelete.triggered.connect(self.openDeleteWindow)
+        self.actionSave.triggered.connect(self.saveCalendar)
+        self.actionOpen.triggered.connect(self.loadCalendar)
         
 
     def retranslateUi(self, PythonCalendar):
@@ -235,6 +238,37 @@ class Ui_PythonCalendar(object):
         self.deleteWindow.close()
 
 
+    def saveCalendar(self):
+       
+        options = QtWidgets.QFileDialog.Options()
+        file_path, _ = QtWidgets.QFileDialog.getSaveFileName(None, "Save Calendar", "", "Pickle Files (*.pkl)", options=options)
+        
+        if file_path:
+            # Save the username and event list to a file
+            with open(file_path, 'wb') as file:
+                pickle.dump({'username': self.userName.text(), 'events': self.eventList}, file)
+            QtWidgets.QMessageBox.information(None, "Save", "Calendar saved successfully!")
+
+    def loadCalendar(self):
+        
+        options = QtWidgets.QFileDialog.Options()
+        file_path, _ = QtWidgets.QFileDialog.getOpenFileName(None, "Load Calendar", "", "Pickle Files (*.pkl)", options=options)
+
+        if file_path:
+            #Load the data and set it to the calendar
+            with open(file_path, 'rb') as file:
+                data = pickle.load(file)
+                self.userName.setText(data['username'])
+                self.eventList = data['events']
+
+            #Update display with loaded events
+            self.monthEventUpdate()
+            self.calendar_1.clearDateTextFormats()  #Clear previous highlights
+
+            #Re-highlight loaded events
+            for _, event_date in self.eventList:
+                self.highlightEvent(event_date.date())
+            QtWidgets.QMessageBox.information(None, "Load", "Calendar loaded successfully!")
 
 
 if __name__ == "__main__":
