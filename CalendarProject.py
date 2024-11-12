@@ -139,16 +139,16 @@ class Ui_PythonCalendar(object):
         self.eventUi = Ui_EventMaker()
         self.eventUi.setupUi(self.eventWindow) #UI Setup
         self.eventUi.createButton.clicked.connect(self.eventAddToCalendar)
-        self.eventWindow.show() #.show
+        self.eventWindow.show()
 
     def eventAddToCalendar(self):
         event_name = self.eventUi.eventName.text() #Adds eventname
         start_date = self.eventUi.dateTimeEditStart.dateTime().toPyDateTime()
         
-    # Store the event in the event list as a tuple
+    #Store the event in the event list as a tuple
         self.eventList.append((event_name, start_date))
     
-    # Update the eventOutput label
+    #Update the eventOutput label
         self.eventOutput.setText("\n".join([f"{e[0]} on {e[1].strftime('%Y-%m-%d')}" for e in self.eventList]))
 
         self.monthEventUpdate()
@@ -214,30 +214,31 @@ class Ui_PythonCalendar(object):
     def deleteEvent(self):
         event_text = self.deleteUi.comboBox.currentText()  #Grabs event text
 
+        removableEvent = None
         #Removes from list/combo box
         for event in self.eventList:
             event_name, event_date = event
             event_textBox = f"{event_name} on {event_date.strftime('%Y-%m-%d')}"
 
             if event_textBox == event_text:
-                self.eventList.remove(event)  # Remove
+                removableEvent = event
                 break  
 
-        self.monthEventUpdate()
-
-        # Default format will remove highlights from the calendar
+        
+        if removableEvent:
+            self.eventList.remove(removableEvent)
+        #Default format will remove highlights from the calendar
     
         default = QtGui.QTextCharFormat() 
-        default.setBackground(QtGui.QBrush(QtGui.QColor("transparent")))  # Set background to transparent
+        default.setBackground(QtGui.QBrush(QtGui.QColor("white")))  # Set background to transparent
+        self.calendar_1.setDateTextFormat(removableEvent[1].date(), default)
 
-        #Clear highlights from the calendar for all dates
-        for _, event_date in self.eventList:
-            self.calendar_1.setDateTextFormat(event_date.date(), default)
 
         #Re-highlight remaining events
         for _, event_date in self.eventList:
             self.highlightEvent(event_date.date())
 
+        self.monthEventUpdate()
         self.deleteWindow.close()
 
 
@@ -247,13 +248,13 @@ class Ui_PythonCalendar(object):
         file_path, _ = QtWidgets.QFileDialog.getSaveFileName(None, "Save Calendar", "", "Pickle Files (*.pkl)", options=options)
         
         if file_path:
-            # Save the username and event list to a file
+            #Save the username and event list to a file
             with open(file_path, 'wb') as file:
                 pickle.dump({'username': self.userName.text(), 'events': self.eventList}, file)
             QtWidgets.QMessageBox.information(None, "Save", "Calendar Saved")
 
     def loadCalendar(self):
-        
+        #Load Calendar should load pickle files
         options = QtWidgets.QFileDialog.Options()
         file_path, _ = QtWidgets.QFileDialog.getOpenFileName(None, "Load Calendar", "", "Pickle Files (*.pkl)", options=options)
 
