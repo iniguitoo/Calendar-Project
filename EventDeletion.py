@@ -1,7 +1,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
-
+#This file is strictly the UI code for the event deletion mini window
 class Ui_DeleteEvent(object):
     def setupUi(self, DeleteEvent):
         DeleteEvent.setObjectName("DeleteEvent")

@@ -1,6 +1,6 @@
 
 #We relied heavily on PyQt5 and Designer in our beta UI development
-import pickle
+import pickle #Pickle is being used for our open functions
 from PyQt5 import QtCore, QtGui, QtWidgets
 from EventCreation import Ui_EventMaker
 from EventDeletion import Ui_DeleteEvent
@@ -8,6 +8,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 
 class Ui_PythonCalendar(object):
+    #The UI is set up with the below code
     def setupUi(self, PythonCalendar, username = "User"):
         PythonCalendar.setObjectName("PythonCalendar")
         PythonCalendar.resize(904, 859)
@@ -195,7 +196,7 @@ class Ui_PythonCalendar(object):
                 self.highlightEvent(event_date.date())
 
     def openDeleteWindow(self):
-    
+        #Delete window is opened and the events are populated
         self.deleteWindow = QtWidgets.QMainWindow()
         self.deleteUi = Ui_DeleteEvent()
         self.deleteUi.setupUi(self.deleteWindow)
@@ -243,7 +244,7 @@ class Ui_PythonCalendar(object):
 
 
     def saveCalendar(self):
-       
+       #Calendar save functionality
         options = QtWidgets.QFileDialog.Options()
         file_path, _ = QtWidgets.QFileDialog.getSaveFileName(None, "Save Calendar", "", "Pickle Files (*.pkl)", options=options)
         

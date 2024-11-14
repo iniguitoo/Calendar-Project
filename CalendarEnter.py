@@ -1,9 +1,9 @@
-# We relied heavily on PyQt5 and Designer in our beta UI development
+#We relied heavily on PyQt5 and Designer in our beta UI development
 from PyQt5 import QtCore, QtGui, QtWidgets
 from CalendarProject import Ui_PythonCalendar
 
 class Ui_MainWindow(object):
-    def createUser(self):  # Function to pass the user's name to the next window
+    def createUser(self):  #Function to pass the user's name to the next window
         username = self.nameEdit.text()
         self.window = QtWidgets.QMainWindow()
         self.ui = Ui_PythonCalendar()
@@ -14,53 +14,53 @@ class Ui_MainWindow(object):
         QtWidgets.QApplication.instance().activeWindow().close()
 
     def quitProgram(self):
-        QtWidgets.QApplication.quit()  # Quit button functionality
+        QtWidgets.QApplication.quit()  #Quit button functionality
 
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(800, 535)
 
-        # Central widget and main layout
+        #Central widget and main layout
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
 
-        # Outer vertical layout to center all content
+        #Outer vertical layout to center all content
         self.outer_layout = QtWidgets.QVBoxLayout(self.centralwidget)
         self.outer_layout.setAlignment(QtCore.Qt.AlignCenter)
 
-        # Inner vertical layout for title and fields
+        #Inner vertical layout for title and fields
         self.inner_layout = QtWidgets.QVBoxLayout()
         self.inner_layout.setSpacing(20)  # Add spacing between widgets
 
-        # Title label
+        #Title label
         self.titleLabel = QtWidgets.QLabel("Welcome to the Python Calendar")
         title_font = QtGui.QFont("Arial", 28, QtGui.QFont.Bold)  
         self.titleLabel.setFont(title_font)
         self.titleLabel.setAlignment(QtCore.Qt.AlignCenter)
 
-        # Name label
+        #Name label
         self.nameLabel = QtWidgets.QLabel("Enter your Name")
         label_font = QtGui.QFont("Arial", 20)  
         self.nameLabel.setFont(label_font)
         self.nameLabel.setAlignment(QtCore.Qt.AlignCenter)
 
-        # Name input field with fixed width
+        #Name input field with fixed width
         self.nameEdit = QtWidgets.QLineEdit()
         input_font = QtGui.QFont("Arial", 14)
         self.nameEdit.setFont(input_font)
         self.nameEdit.setFixedWidth(400)  
 
-        # User creation button with fixed width
+        #User creation button with fixed width
         self.userCreate = QtWidgets.QPushButton("Create User", clicked=self.createUser)
         button_font = QtGui.QFont("Arial", 12, QtGui.QFont.Bold)
         self.userCreate.setFont(button_font)
         self.userCreate.setFixedWidth(200)  
-        # Quit button with fixed width
+        #Quit button with fixed width
         self.quitButton = QtWidgets.QPushButton("Quit", clicked=self.quitProgram)
         self.quitButton.setFont(button_font)
         self.quitButton.setFixedWidth(200)  
 
-        # Adding widgets to inner layout with spacing
+        #Adding widgets to inner layout with spacing
         self.inner_layout.addWidget(self.titleLabel)
         self.inner_layout.addSpacing(10)  
         self.inner_layout.addWidget(self.nameLabel)
@@ -68,12 +68,12 @@ class Ui_MainWindow(object):
         self.inner_layout.addWidget(self.userCreate, alignment=QtCore.Qt.AlignCenter)
         self.inner_layout.addWidget(self.quitButton, alignment=QtCore.Qt.AlignCenter)
 
-        # Add inner layout to the outer layout
+        #Add inner layout to the outer layout
         self.outer_layout.addLayout(self.inner_layout)
 
         MainWindow.setCentralWidget(self.centralwidget)
 
-        # Menubar and statusbar
+        #Menubar and statusbar
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
