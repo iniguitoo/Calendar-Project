@@ -189,7 +189,7 @@ class Ui_PythonCalendar(object):
         self.eventList = [event for event in self.eventList if event[1].date() >= current_date]
         
         self.monthEventUpdate()
-        self.calendar_1.clearDateTextFormats() #Clear data
+        self.calendar_1.clearDateTextFormat() #Clear data
         
         for event_name, event_date in self.eventList:
             if event_date.date() >= current_date:
@@ -252,7 +252,7 @@ class Ui_PythonCalendar(object):
             #Save the username and event list to a file
             with open(file_path, 'wb') as file:
                 pickle.dump({'username': self.userName.text(), 'events': self.eventList}, file)
-            QtWidgets.QMessageBox.information(None, "Save File", "Calendar Saved")
+            QtWidgets.QMessageBox.information(None, "Save File", "Calendar Saved") 
 
     def loadCalendar(self):
         #Load Calendar should load pickle files
@@ -260,20 +260,36 @@ class Ui_PythonCalendar(object):
         file_path, _ = QtWidgets.QFileDialog.getOpenFileName(None, "Load Calendar", "", "Pickle Files (*.pkl)", options=options)
 
         if file_path:
-            #Load the data and set it to the calendar
-            with open(file_path, 'rb') as file:
-                data = pickle.load(file)
-                self.userName.setText(data['username'])
-                self.eventList = data['events']
+            try:
+                #Load the data and set it to the calendar
+                with open(file_path, 'rb') as file:
+                    data = pickle.load(file)
+                    self.userName.setText(data['username'])
+                    self.eventList = data['events']
+                
+                if 'username' in data and 'events' in data: 
+                    self.userName.setText(data['username']) 
+                    self.eventList = data['events']
 
-            #Update display with loaded events
-            self.monthEventUpdate()
-            self.calendar_1.clearDateTextFormats()  #Clear previous highlights
+                    default_format = QtGui.QTextCharFormat() 
+                    min_date = self.calendar_1.minimumDate() 
+                    max_date = self.calendar_1.maximumDate() 
+                    current_date = min_date 
+                    while current_date <= max_date: 
+                        self.calendar_1.setDateTextFormat(current_date, default_format) 
+                        current_date = current_date.addDays(1)
+                    #Update display with loaded events
+                    self.monthEventUpdate()
+                    
 
-            #Re-highlight loaded events
-            for _, event_date in self.eventList:
-                self.highlightEvent(event_date.date())
-            QtWidgets.QMessageBox.information(None, "Load", "Calendar loaded successfully!")
+                #Re-highlight loaded events
+                    for _, event_date in self.eventList:
+                        self.highlightEvent(event_date.date())
+                    QtWidgets.QMessageBox.information(None, "Load File", "Calendar loaded successfully!")
+                else:
+                    QtWidgets.QMessageBox.warning(None, "Load File", "Invalid calendar file format.")
+            except Exception as ex: #Exception handles any load errors
+                QtWidgets.QMessageBox.critical(None, "Load Error", f"Calendar Could not be loaded: {ex}")
 
 if __name__ == "__main__":
     import sys
