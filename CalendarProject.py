@@ -252,7 +252,7 @@ class Ui_PythonCalendar(object):
             #Save the username and event list to a file
             with open(file_path, 'wb') as file:
                 pickle.dump({'username': self.userName.text(), 'events': self.eventList}, file)
-            QtWidgets.QMessageBox.information(None, "Save", "Calendar Saved")
+            QtWidgets.QMessageBox.information(None, "Save File", "Calendar Saved")
 
     def loadCalendar(self):
         #Load Calendar should load pickle files
