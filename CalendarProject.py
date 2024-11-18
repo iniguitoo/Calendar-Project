@@ -266,20 +266,32 @@ class Ui_PythonCalendar(object):
                 self.calendar_1.setDateTextFormat(current_date, highlight)
                 current_date = current_date.addDays(1)
         
-        # Filter events for display in the event output
-        events_in_month = [
-            f"{event_name} starts  {start_date.strftime('%Y-%m-%d')} at {start_date.strftime('%H:%M')} "
-            f"and finishes {end_date.strftime('%Y-%m-%d')} {end_date.strftime('%H:%M')}"
-            for event_name, start_date, end_date, _ in self.eventList
-            if (start_date.month == current_month and start_date.year == current_year) or
-            (end_date.month == current_month and end_date.year == current_year)
-        ]
+        # Filter events for display in the event output with colored bullets
+        events_in_month = []
+        for event_name, start_date, end_date, event_color in self.eventList:
+            if ((start_date.month == current_month and start_date.year == current_year) or
+                (end_date.month == current_month and end_date.year == current_year)):
+                # Create bigger colored bullet using HTML and font-size
+                bullet_html = f'<span style="color: {event_color}; font-size: 20px;">●</span>'
+                
+                # Format dates in bold
+                start_datetime = f'<b>{start_date.strftime("%Y-%m-%d")} at {start_date.strftime("%H:%M")}</b>'
+                end_datetime = f'<b>{end_date.strftime("%Y-%m-%d")} at {end_date.strftime("%H:%M")}</b>'
+                
+                # Create the event text with all formatting
+                event_text = (
+                    f"{bullet_html} {event_name} starts {start_datetime} "
+                    f"and finishes {end_datetime}"
+                )
+                events_in_month.append(event_text)
         
-        # Update the eventOutput label
+        # Update the eventOutput label with HTML content
         if events_in_month:
-            self.eventOutput.setText("\n".join(events_in_month))
+            self.eventOutput.setText("<br>".join(events_in_month))
+            self.eventOutput.setTextFormat(QtCore.Qt.RichText)  # Enable HTML interpretation
         else:
             self.eventOutput.setText("No Events This Month")
+            self.eventOutput.setTextFormat(QtCore.Qt.PlainText)  # Reset to plain text
 
 
 
